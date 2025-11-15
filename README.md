@@ -6,6 +6,10 @@ Users can manage tasks with CRUD operations, visualize them on a calendar, view 
 The app features responsive design with dark/light theme toggle, and it's built for personal use (no JWT—userId passed in paths).
 
 
+Application Screenshots : https://github.com/kiranc2001/task-planner-backend/tree/main/screenshots
+
+
+
 Key Features:
 
 Authentication: Signup, signin, forgot password with OTP email, password reset.
