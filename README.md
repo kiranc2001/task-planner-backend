@@ -5,7 +5,8 @@ AI Task Planner is a full-stack productivity web app that integrates AI (OpenAI)
 Users can manage tasks with CRUD operations, visualize them on a calendar, view completion analytics via charts, and receive email reminders for due tasks. 
 The app features responsive design with dark/light theme toggle, and it's built for personal use (no JWT—userId passed in paths).
 
-Key Features
+
+Key Features:
 
 Authentication: Signup, signin, forgot password with OTP email, password reset.
 
@@ -25,7 +26,8 @@ UI/UX: Material-UI responsive design, dark/light theme toggle, linted code (ESLi
 
 Backend: Spring Boot with MySQL, BCrypt hashing, OpenAI integration, custom error handling.
 
-Tech Stack
+
+Tech Stack:
 
 Backend: Spring Boot 3.2.0, Java 21, JPA/Hibernate, PostgreSQL, OpenAI Java Client 4.7.1, Spring Mail for emails.
 
@@ -35,7 +37,8 @@ Tools: IntelliJ for backend, VS Code for frontend, MySQL Workbench for DB, Postm
 
 Linting: ESLint + Prettier for frontend.
 
-Prerequisites
+
+Prerequisites:
 
 Java 21 (JDK).
 
@@ -49,7 +52,9 @@ Gmail App Password (for emails/OTPs—enable 2FA on Gmail).
 
 IntelliJ IDEA (backend), VS Code (frontend with ESLint/Prettier extensions).
 
+
 Backend Setup & Run
+
  1. Clone/Setup Project
 - Create Spring Boot project in IntelliJ (or clone if repo'd).
 - Update `pom.xml` (full from earlier; includes MySQL, OpenAI, Lombok, Validation, Mail, Scheduler).
@@ -91,6 +96,7 @@ Backend Setup & Run
 5. Backend API Endpoints (Test in Postman)
 Base: `http://localhost:9000/api`.
 
+
 User APIs:
 - POST `/users/signup` Body: `{ "name": "Kiran", "email": "test@test.com", "password": "pass123" }` → `{ "id": 1, "name": "Kiran", "email": "test@test.com" }` (200; 409 duplicate).
 - POST `/users/signin` Body: `{ "email": "test@test.com", "password": "pass123" }` → `{ "id": 1, "name": "Kiran", "email": "test@test.com" }` (200; 401 invalid pass).
@@ -111,6 +117,8 @@ Analytics:
 - GET `/analytics/tasks/1` → `{ "totalTasks": 1, "completedTasks": 0, "pendingTasks": 1, "completionPercentage": 0.0 }` (200).
 
 Notifications: Internal (cron daily 9 AM)—test by editing `NotificationServiceImpl.java` to `@Scheduled(fixedRate = 30000)` (every 30s), restart, create due-soon task, wait/check email/DB.
+
+
 
 Frontend Setup & Run
 
@@ -162,17 +170,20 @@ Logout: Clears storage, redirects to login.
 -AI Fails: Verify OpenAI key in backend properties; test in Postman.
 -Notifications: Change cron to `fixedRate = 30000` for test; check `notifications` table.
 
+
 Deployment
 - Backend: JAR via `mvn clean package` > `java -jar target/task-planner-backend-0.0.1-SNAPSHOT.jar` (Heroku/Railway; env vars for DB/OpenAI).
 - Frontend: `npm run build` > Static host (Vercel/Netlify; set REACT_APP_API_BASE env).
 - DB: Heroku ClearDB or Railway MySQL.
 - Emails: Use SendGrid if Gmail limits.
 
+
 Contributing
 - Fork repo.
 - Backend: Add features in services/controllers; test with Postman.
 - Frontend: Add pages/components; lint before PR.
 - Issues: Report lint/DB/API bugs.
+
 
 Contact
 Email: kirangowda0212@gmail.com
