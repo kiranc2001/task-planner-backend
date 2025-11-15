@@ -6,28 +6,47 @@ Users can manage tasks with CRUD operations, visualize them on a calendar, view 
 The app features responsive design with dark/light theme toggle, and it's built for personal use (no JWT—userId passed in paths).
 
 Key Features
+
 Authentication: Signup, signin, forgot password with OTP email, password reset.
+
 Task Management: Add/edit/delete tasks with priority (LOW/MEDIUM/HIGH), status (PENDING/IN_PROGRESS/COMPLETED), description, due date.
+
 Dashboard: List tasks with filters (priority, due date).
+
 AI Suggestions: "Get Smart Schedule" button analyzes tasks and generates OpenAI-powered recommendations (e.g., prioritized order, estimated times).
+
 Calendar View: Visualize tasks on interactive calendar (FullCalendar).
+
 Reports: Pie chart for completed vs. pending tasks (Chart.js).
+
 Notification: Daily cron job emails reminders for tasks due <24 hours.
+
 UI/UX: Material-UI responsive design, dark/light theme toggle, linted code (ESLint + Prettier).
+
 Backend: Spring Boot with MySQL, BCrypt hashing, OpenAI integration, custom error handling.
 
 Tech Stack
+
 Backend: Spring Boot 3.2.0, Java 21, JPA/Hibernate, PostgreSQL, OpenAI Java Client 4.7.1, Spring Mail for emails.
+
 Frontend: React 18, TypeScript, Material-UI, Axios, React Router, FullCalendar, Chart.js.
+
 Tools: IntelliJ for backend, VS Code for frontend, MySQL Workbench for DB, Postman for API testing.
+
 Linting: ESLint + Prettier for frontend.
 
 Prerequisites
+
 Java 21 (JDK).
+
 Node.js 18+ (NPM).
+
 PostgreSQL (local server).
+
 OpenAI API Key (for AI suggestions—free tier OK).
+
 Gmail App Password (for emails/OTPs—enable 2FA on Gmail).
+
 IntelliJ IDEA (backend), VS Code (frontend with ESLint/Prettier extensions).
 
 Backend Setup & Run
