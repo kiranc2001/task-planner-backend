@@ -1,0 +1,55 @@
+### Summary of Backend Operations and Endpoints
+
+We've successfully built and iterated on your Spring Boot backend for the AI Task Planner app. Below is a **complete list of operations** (endpoints) implemented, grouped by controller. Each includes:
+
+- **Operation**: Brief description.
+- **Method & URL**: Full HTTP method and path (using port 9000 as configured; replace {userId} with e.g., 1 from signup).
+- **Request Body**: Example JSON (if applicable; raw JSON in Postman).
+- **Response**: Expected success payload (200 OK).
+
+All endpoints are protected by userId in path (validates ownership). Base URL: `http://localhost:9000`.
+
+#### **1. User Management (Auth: Signup, Signin, Forgot/Reset Password)**
+| Operation | Method & URL | Request Body (JSON) | Expected Response (JSON) |
+|-----------|--------------|---------------------|--------------------------|
+| Signup (Create User) | POST `/api/users/signup` | `{ "name": "Kiran", "email": "kirankiki590@gmail.com", "password": "pass123" }` | `{ "id": 1, "name": "Kiran", "email": "kirankiki590@gmail.com" }` |
+| Signin (Validate User) | POST `/api/users/signin` | `{ "email": "kirankiki590@gmail.com", "password": "pass123" }` | `{ "id": 1, "name": "Kiran", "email": "kirankiki590@gmail.com" }` |
+| Forgot Password (Send OTP Email) | POST `/api/users/forgot-password` | `{ "email": "kirankiki590@gmail.com" }` | (Empty body) |
+| Reset Password (Verify OTP & Update) | POST `/api/users/{email}/reset-password` (e.g., `/api/users/kirankiki590@gmail.com/reset-password`) | `{ "otp": "123456", "newPassword": "newpass456" }` | (Empty body) |
+
+#### **2. Task Management (CRUD Operations)**
+Use {userId}=1 from signup.
+
+| Operation | Method & URL | Request Body (JSON) | Expected Response (JSON) |
+|-----------|--------------|---------------------|--------------------------|
+| Create Task | POST `/api/tasks/{userId}` (e.g., `/api/tasks/1`) | `{ "title": "Buy Groceries", "description": "Milk, bread", "priority": "HIGH", "status": "PENDING", "dueDate": "2025-11-15T10:00:00" }` | `{ "id": 1, "userId": 1, "title": "Buy Groceries", "description": "Milk, bread", "priority": "HIGH", "status": "PENDING", "dueDate": "2025-11-15T10:00:00", "createdAt": "2025-11-14T18:00:00" }` |
+| List User's Tasks | GET `/api/tasks/{userId}` (e.g., `/api/tasks/1`) | None | `[{ "id": 1, "userId": 1, "title": "Buy Groceries", ... }]` (array) |
+| Get Single Task | GET `/api/tasks/{userId}/{taskId}` (e.g., `/api/tasks/1/1`) | None | `{ "id": 1, "userId": 1, "title": "Buy Groceries", ... }` |
+| Update Task (Partial) | PUT `/api/tasks/{userId}/{taskId}` (e.g., `/api/tasks/1/1`) | `{ "status": "COMPLETED", "title": "Updated Groceries" }` (optional fields) | `{ "id": 1, "userId": 1, "title": "Updated Groceries", "status": "COMPLETED", ... }` |
+| Delete Task | DELETE `/api/tasks/{userId}/{taskId}` (e.g., `/api/tasks/1/1`) | None | (Empty body) |
+
+#### **3. AI Suggestions (Smart Scheduling)**
+| Operation | Method & URL | Request Body (JSON) | Expected Response (JSON) |
+|-----------|--------------|---------------------|--------------------------|
+| Get AI Schedule Recommendations | POST `/api/ai/suggestions/{userId}` (e.g., `/api/ai/suggestions/1`) | `{ "tasks": [ { "id": 1, "userId": 1, "title": "Buy Groceries", "description": "Milk, bread", "priority": "HIGH", "status": "PENDING", "dueDate": "2025-11-15T10:00:00", "createdAt": "2025-11-14T18:00:00" } ] }` (array from GET tasks) | `{ "recommendations": "Prioritize high-priority tasks like 'Buy Groceries' first thing tomorrow. Estimated time: 30 mins. Optimize by combining with errands..." }` (OpenAI-generated text) |
+
+#### **4. Analytics (Task Reports)**
+| Operation | Method & URL | Request Body (JSON) | Expected Response (JSON) |
+|-----------|--------------|---------------------|--------------------------|
+| Get Task Completion Stats | GET `/api/analytics/tasks/{userId}` (e.g., `/api/analytics/tasks/1`) | None | `{ "totalTasks": 2, "completedTasks": 1, "pendingTasks": 1, "completionPercentage": 50.0 }` |
+
+#### **5. Background Operations (No Direct API Calls)**
+These are internal/scheduled—no URLs, but configured:
+| Operation | Description | Trigger/Config |
+|-----------|-------------|----------------|
+| Email Reminders | Sends emails for tasks due <24hrs; saves to `notifications` table. | `@Scheduled(cron = "0 0 9 * * ?")` in `NotificationServiceImpl` (daily 9 AM). Test with `fixedRate=30000`. |
+| OTP Email for Forgot Password | Generates/sends 6-digit OTP via email. | Called in `forgotPassword()`; stored in-memory (expires 10min). |
+
+### Key Notes from Our Development
+- **Total Endpoints**: 10+ (CRUD for tasks, auth flows, AI, analytics).
+- **Error Handling**: Custom (400 validation, 401 unauthorized access, 404 not found, 409 duplicates)—no raw 500s.
+- **Dependencies Fixed**: Removed full security (kept `spring-security-crypto` for BCrypt); fixed HQL/native queries for MySQL.
+- **Testing Flow**: Signup → Signin → Create tasks → List/Update → Analytics → AI (use tasks in body) → Delete → Forgot/Reset.
+- **Port**: All on 9000 (as configured). Change in `application.properties` if needed.
+
+This covers everything we've built—app is fully functional! If you need frontend React code or deployment help, say the word.
