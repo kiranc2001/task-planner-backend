@@ -8,9 +8,10 @@ The app features responsive design with dark/light theme toggle, and it's built 
 
 Application Screenshots : https://github.com/kiranc2001/task-planner-backend/tree/main/screenshots
 
-Backend Github Repo: current repo
+Backend Github Repo: Current repo
 
 Frontend Github Repo : https://github.com/kiranc2001/task-planner-frontend
+
 
 
 
