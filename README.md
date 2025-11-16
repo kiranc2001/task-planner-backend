@@ -8,6 +8,17 @@ The app features responsive design with dark/light theme toggle, and it's built 
 
 Application Screenshots : https://github.com/kiranc2001/task-planner-backend/tree/main/screenshots
 
+Backend Github Repo: current repo
+
+Frontend Github Repo : https://github.com/kiranc2001/task-planner-frontend
+
+
+
+
+For more detailed explaination:
+
+Medium : https://medium.com/@kirangowda0212/building-an-ai-powered-task-planner-a-full-stack-journey-with-spring-boot-react-and-openai-e4a7acb4a8d4
+
 
 
 Key Features:
